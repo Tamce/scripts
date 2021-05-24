@@ -1,0 +1,28 @@
+syntax on
+set nocompatible
+set nobackup
+set nu
+set autoindent
+set si
+set sw=4
+set ts=4
+set expandtab
+autocmd FileType go set noexpandtab
+set encoding=utf-8
+set modelines=0
+set backspace=indent,eol,start
+set hlsearch
+set ignorecase
+
+set t_Co=256
+
+nnoremap `k <c-w>k
+nnoremap `j <c-w>j
+nnoremap `h <c-w>h
+nnoremap `l <c-w>l
+
+" ====== set space and tabs, should after theme settings
+set list
+set listchars=tab:-->,space:.
+highlight SpecialKey ctermfg=236
+

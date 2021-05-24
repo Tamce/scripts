@@ -1,4 +1,5 @@
 syntax on
+set nocompatible
 set nobackup
 set nu
 set autoindent
@@ -11,7 +12,29 @@ set encoding=utf-8
 set modelines=0
 set backspace=indent,eol,start
 set hlsearch
+set ignorecase
+if has('mouse')
+    set mouse=a
+endif
 " set cmdheight=2
+
+func OpenTerm()
+    exec "bel term"
+    exec "resize 15"
+endf
+nnoremap <expr> <c-=> OpenTerm()
+
+" ====== window jump shortcuts
+" for bluetooth keyboard
+nnoremap !h <c-w>h
+nnoremap !j <c-w>j
+nnoremap !k <c-w>k
+nnoremap !l <c-w>l
+" for easy usage
+nnoremap `h <c-w>h
+nnoremap `j <c-w>j
+nnoremap `k <c-w>k
+nnoremap `l <c-w>l
 
 set t_Co=256
 
@@ -21,7 +44,16 @@ Plug 'preservim/nerdtree'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhartington/oceanic-next'
+Plug 'liuchengxu/vista.vim'
 call plug#end()
+
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista_default_executive = 'coc'
+
+" ====== extra custom settings for coc
+set tagfunc=CocTagFunc
+" enable format-on-save in golang
+autocmd BufWritePre *.go call CocAction('format')
 
 " ====== theme
 let g:airline_powerline_fonts = 1
@@ -42,13 +74,13 @@ set listchars=tab:-->,space:.
 highlight SpecialKey ctermfg=236
 
 " =================== NERD settings ==================
-nnoremap <C-e> :NERDTreeToggle<CR>
+nnoremap <c-e> :NERDTreeToggle<CR>
+let NERDTreeShowBookmarks=1
 " Start NERDTree and leave the cursor in it.
 " autocmd VimEnter * NERDTree
 
 " Exit Vim if NERDTree is the only window left.
-" autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
-"    \ quit | endif
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
 
 " ==================== COC key mappings ==============
@@ -199,3 +231,4 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
